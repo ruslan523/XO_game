@@ -4,9 +4,13 @@
 #include <GL/freeglut.h>
 
 int i = 0;
-bool isFirst;
-int *mass = new int[9];
+bool isFirst = false;
+//int *mass = new int[9];
+enum points { X, O, N };
+points *point = new points[9];
 int *round = new int[9];
+int counter;
+int cntr;
 
 void X_signal(int place_on_mass)
 {
@@ -94,7 +98,7 @@ void Display()
 	glVertex2f(175, 460);
 	glVertex2f(175, 40);
 	glVertex2f(185, 460);
-	glVertex2f(185, 40);	
+	glVertex2f(185, 40);
 	glVertex2f(320, 460);
 	glVertex2f(320, 40);
 	glVertex2f(330, 460);
@@ -113,102 +117,754 @@ void Display()
 
 	if (isFirst == false)
 	{
-		mass[6] = 1;
-		round[0] = 6;
-		if (mass[0] == 2)
+		if (((point[0] == X) && (point[1] == X) && (point[2] == X))
+			|| ((point[3] == X) && (point[4] == X) && (point[5] == X))
+			|| ((point[6] == X) && (point[7] == X) && (point[8] == X))
+			|| ((point[0] == X) && (point[3] == X) && (point[6] == X))
+			|| ((point[1] == X) && (point[4] == X) && (point[7] == X))
+			|| ((point[2] == X) && (point[5] == X) && (point[8] == X))
+			|| ((point[0] == X) && (point[3] == X) && (point[6] == X))
+			|| ((point[0] == X) && (point[4] == X) && (point[8] == X))
+			|| ((point[2] == X) && (point[4] == X) && (point[6] == X)))
 		{
-			round[1] = 0;
-			mass[8] = 1;
+			for (int cnt = 0; cnt < 9; cnt++)
+			{
+				round[cnt] = 10;
+				point[cnt] = X;
+			}
+		}
+		round[0] = 6;
+		point[6] = X;
+		counter = 1;
+		if (round[1] == 0)
+		{
+			point[0] = O;
 			round[2] = 8;
-			if (mass[1] == 2)
+			point[8] = X;
+			counter = 3;
+			if (round[3] == 1)
 			{
-				round[3] = 1;
-				mass[7] = 1;
+				point[1] = O;
 				round[4] = 7;
+				point[7] = X;
 			}
-			else if (mass[2] == 2)
+			else if (round[3] == 2)
 			{
-				round[3] = 2;
-				mass[7] = 1;
+				point[2] = O;
 				round[4] = 7;
+				point[7] = X;
 			}
-			else if (mass[3] == 2)
+			else if (round[3] == 3)
 			{
-				round[3] = 3;
-				mass[7] = 1;
+				point[3] = O;
 				round[4] = 7;
+				point[7] = X;
 			}
-			else if (mass[4] == 2)
+			else if (round[3] == 4)
 			{
-				round[3] = 4;
-				mass[7] = 1;
+				point[4] = O;
 				round[4] = 7;
+				point[7] = X;
 			}
-			else if (mass[5] == 2)
+			else if (round[3] == 5)
 			{
-				round[3] = 5;
-				mass[7] = 1;
+				point[5] = O;
 				round[4] = 7;
+				point[7] = X;
 			}
-			else if (mass[7] == 2)
+			else if (round[3] == 7)
 			{
-				round[3] = 7;
-				if (mass[1] == 2)
+				point[7] = O;
+				round[4] = 2;
+				point[2] = X;
+				counter = 5;
+				if (round[5] == 1)
 				{
-					round[4] = 1;
-					mass[5] = 1;
-					round[5] = 5;
+					point[1] = O;
+					round[6] = 5;
+					point[5] = X;
 				}
-				else if (mass[3] == 2)
+				else if (round[5] == 3)
 				{
-					round[4] = 3;
-					mass[5] = 1;
-					round[5] = 5;
+					point[3] = O;
+					round[6] = 5;
+					point[5] = X;
 				}
-				else if (mass[4] == 2)
+				else if (round[5] == 4)
 				{
-					round[4] = 4;
-					mass[5] = 1;
-					round[5] = 5;
+					point[4] = O;
+					round[6] = 5;
+					point[5] = X;
 				}
-				else if (mass[5] == 2)
+				else if (round[5] == 5)
 				{
-					round[4] = 5;
-					mass[4] = 1;
-					round[5] = 4;
+					point[5] = O;
+					round[6] = 4;
+					point[4] = X;
 				}
 			}
 		}
-		else if (mass[1] == 2)
+		else if (round[1] == 1)
 		{
-			round[1] = 1;
-			mass[4] = 1;
+			point[1] = O;
 			round[2] = 4;
-			if (mass[0] == 2)
+			point[4] = X;
+			counter = 3;
+			if (round[3] == 0)
 			{
-				round[3] = 0;
-				mass[2] = 1;
+				point[0] = O;
 				round[4] = 2;
+				point[2] = X;
 			}
-			else if (mass[2] == 2)
+			else if (round[3] == 2)
 			{
-				round[3] = 2;
-				mass[0] = 1;
-
-				if (true)
+				point[2] = O;
+				round[4] = 0;
+				point[0] = X;
+				counter = 5;
+				if (round[5] == 3)
 				{
-
+					point[3] = O;
+					round[6] = 8;
+					point[8] = X;
 				}
+				else if (round[5] == 5)
+				{
+					point[5] = O;
+					round[6] = 3;
+					point[3] = X;
+				}
+				else if (round[5] == 7)
+				{
+					point[7] = O;
+					round[6] = 3;
+					point[3] = X;
+				}
+				else if (round[5] == 8)
+				{
+					point[8] = O;
+					round[6] = 3;
+					point[3] = X;
+				}
+			}
+			else if (round[3] == 3)
+			{
+				point[3] = O;
+				round[4] = 2;
+				point[2] = X;
+			}
+			else if (round[3] == 5)
+			{
+				point[5] = O;
+				round[4] = 2;
+				point[2] = X;
+			}
+			else if (round[3] == 7)
+			{
+				point[7] = O;
+				round[4] = 2;
+				point[2] = X;
+			}
+			else if (round[3] == 8)
+			{
+				point[8] = O;
+				round[4] = 2;
+				point[2] = X;
+			}
+		}
+		else if (round[1] == 2)
+		{
+			point[2] = O;
+			round[2] = 8;
+			point[8] = X;
+			counter = 3;
+			if (round[3] == 0)
+			{
+				point[0] = O;
+				round[4] = 7;
+				point[7] = X;
+			}
+			else if (round[3] == 1)
+			{
+				point[1] = O;
+				round[4] = 7;
+				point[7] = X;
+			}
+			else if (round[3] == 3)
+			{
+				point[3] = O;
+				round[4] = 7;
+				point[7] = X;
+			}
+			else if (round[3] == 4)
+			{
+				point[4] = O;
+				round[4] = 7;
+				point[7] = X;
+			}
+			else if (round[3] == 5)
+			{
+				point[5] = O;
+				round[4] = 7;
+				point[7] = X;
+			}
+			else if (round[3] == 7)
+			{
+				point[7] = O;
+				round[4] = 0;
+				point[0] = X;
+				counter = 5;
+				if (round[5] == 1)
+				{
+					point[1] = O;
+					round[6] = 3;
+					point[3] = X;
+				}
+				else if (round[5] == 3)
+				{
+					point[3] = O;
+					round[6] = 4;
+					point[4] = X;
+				}
+				else if (round[5] == 4)
+				{
+					point[4] = O;
+					round[6] = 3;
+					point[3] = X;
+				}
+				else if (round[5] == 5)
+				{
+					point[5] = O;
+					round[6] = 3;
+					point[3] = X;
+				}
+			}
+		}
+		else if (round[1] == 3)
+		{
+			point[3] = O;
+			round[2] = 4;
+			point[4] = X;
+			counter = 3;
+			if (round[3] == 0)
+			{
+				point[0] = O;
+				round[4] = 2;
+				point[2] = X;
+			}
+			else if (round[3] == 1)
+			{
+				point[1] = O;
+				round[4] = 2;
+				point[2] = X;
+			}
+			else if (round[3] == 2)
+			{
+				point[2] = O;
+				round[4] = 8;
+				point[8] = X;
+				counter = 5;
+				if (round[5] == 0)
+				{
+					point[0] = O;
+					round[6] = 7;
+					point[7] = X;
+				}
+				else if (round[5] == 1)
+				{
+					point[1] = O;
+					round[6] = 7;
+					point[7] = X;
+				}
+				else if (round[5] == 5)
+				{
+					point[5] = O;
+					round[6] = 7;
+					point[7] = X;
+				}
+				else if (round[5] == 7)
+				{
+					point[7] = O;
+					round[6] = 0;
+					point[0] = X;
+				}
+			}
+			else if (round[3] == 5)
+			{
+				point[5] = O;
+				round[4] = 2;
+				point[2] = X;
+			}
+			else if (round[3] == 7)
+			{
+				point[7] = O;
+				round[4] = 2;
+				point[2] = X;
+			}
+			else if (round[3] == 8)
+			{
+				point[8] = O;
+				round[4] = 2;
+				point[2] = X;
+			}
+		}
+		else if (round[1] == 4)
+		{
+			point[4] = O;
+			round[2] = 2;
+			point[2] = X;
+			counter = 3;
+			if (round[3] == 0)
+			{
+				point[0] = O;
+				round[4] = 8;
+				point[8] = X;
+				counter = 5;
+				if (round[5] == 1)
+				{
+					point[1] = O;
+					round[6] = 5;
+					point[5] = X;
+				}
+				else if (round[5] == 3)
+				{
+					point[3] = O;
+					round[6] = 5;
+					point[5] = X;
+				}
+				else if (round[5] == 5)
+				{
+					point[5] = O;
+					round[6] = 7;
+					point[7] = X;
+				}
+				else if (round[5] == 7)
+				{
+					point[7] = O;
+					round[6] = 5;
+					point[5] = X;
+				}
+			}
+			else if (round[3] == 1)
+			{
+				point[1] = O;
+				round[4] = 7;
+				point[7] = X;
+				counter = 5;
+				if (round[5] == 0)
+				{
+					point[0] = O;
+					round[6] = 8;
+					point[8] = X;
+				}
+				else if (round[5] == 3)
+				{
+					point[3] = O;
+					round[6] = 8;
+					point[8] = X;
+				}
+				else if (round[5] == 5)
+				{
+					point[5] = O;
+					round[6] = 8;
+					point[8] = X;
+				}
+				else if (round[5] == 8)
+				{
+					point[8] = O;
+					round[6] = 0;
+					point[0] = X;
+					counter = 7;
+					if (round[7] == 3)
+					{
+						point[3] = O;
+						round[8] = 5;
+						point[5] = X;
+					}
+					else if (round[7] == 5)
+					{
+						point[5] = O;
+						round[8] = 3;
+						point[3] = X;
+					}
+				}
+			}
+			else if (round[3] == 3)
+			{
+				point[5] = O;
+				round[4] = 5;
+				point[5] = X;
+				counter = 5;
+				if (round[5] == 0)
+				{
+					point[0] = O;
+					round[6] = 8;
+					point[8] = X;
+				}
+				else if (round[5] == 1)
+				{
+					point[1] = O;
+					round[6] = 8;
+					point[8] = X;
+				}
+				else if (round[5] == 7)
+				{
+					point[7] = O;
+					round[6] = 8;
+					point[8] = X;
+				}
+				else if (round[5] == 8)
+				{
+					point[8] = O;
+					round[6] = 0;
+					point[0] = X;
+					counter = 7;
+					if (round[7] == 1)
+					{
+						point[1] = O;
+						round[8] = 7;
+						point[7] = X;
+					}
+					else if (round[1] == 7)
+					{
+						point[7] = O;
+						round[8] = 1;
+						point[1] = X;
+					}
+				}
+			}
+			else if (round[3] == 5)
+			{
+				point[5] = O;
+				round[4] = 3;
+				point[3] = X;
+				counter = 5;
+				if (round[5] == 0)
+				{
+					point[0] = O;
+					round[6] = 8;
+					point[8] = X;
+					counter = 7;
+					if (round[7] == 1)
+					{
+						point[1] = O;
+						round[8] = 7;
+						point[7] = X;
+					}
+					else if (round[7] == 7)
+					{
+						point[7] = O;
+						round[8] = 1;
+						point[1] = X;
+					}
+				}
+				else if (round[5] == 1)
+				{
+					point[1] = O;
+					round[6] = 0;
+					point[0] = X;
+				}
+				else if (round[5] == 7)
+				{
+					point[7] = O;
+					round[6] = 0;
+					point[0] = X;
+				}
+				else if (round[5] == 8)
+				{
+					point[8] = O;
+					round[6] = 0;
+					point[0] = X;
+				}
+			}
+			if (round[3] == 7)
+			{
+				point[7] = O;
+				round[4] = 1;
+				point[1] = X;
+				counter = 5;
+				if (round[5] == 0)
+				{
+					point[0] = O;
+					round[6] = 8;
+					point[8] = X;
+					counter = 7;
+					if (round[7] == 3)
+					{
+						point[3] = O;
+						round[8] = 5;
+						point[5] = X;
+					}
+					else if (round[7] == 5)
+					{
+						point[5] = O;
+						round[8] = 3;
+						point[3] = X;
+					}
+				}
+				else if (round[5] == 3)
+				{
+					point[3] = O;
+					round[6] = 0;
+					point[0] = X;
+				}
+				else if (round[5] == 5)
+				{
+					point[5] = O;
+					round[6] = 0;
+					point[0] = X;
+				}
+				else if (round[5] == 8)
+				{
+					point[8] = O;
+					round[6] = 0;
+					point[0] = X;
+				}
+			}
+			if (round[3] == 8)
+			{
+				point[8] = O;
+				round[4] = 0;
+				point[0] = X;
+				counter = 5;
+				if (round[5] == 1)
+				{
+					point[1] = O;
+					round[6] = 3;
+					point[3] = X;
+				}
+				else if (round[5] == 3)
+				{
+					point[3] = O;
+					round[6] = 1;
+					point[1] = X;
+				}
+				else if (round[5] == 5)
+				{
+					point[5] = O;
+					round[6] = 1;
+					point[5] = X;
+				}
+				else if (round[5] == 7)
+				{
+					point[7] = O;
+					round[6] = 3;
+					point[3] = X;
+				}
+			}
+		}
+		else if (round[1] == 5)
+		{
+			point[5] = O;
+			round[2] = 4;
+			point[4] = X;
+			counter = 3;
+			if (round[3] == 0)
+			{
+				point[0] = O;
+				round[4] = 2;
+				point[2] = X;
+			}
+			else if (round[3] == 1)
+			{
+				point[1] = O;
+				round[4] = 2;
+				point[2] = X;
+			}
+			else if (round[3] == 2)
+			{
+				point[2] = O;
+				round[4] = 8;
+				point[8] = X;
+				counter = 5;
+				if (round[5] == 0)
+				{
+					point[0] = O;
+					round[6] = 7;
+					point[7] = X;
+				}
+				else if (round[5] == 1)
+				{
+					point[1] = O;
+					round[6] = 7;
+					point[7] = X;
+				}
+				else if (round[5] == 3)
+				{
+					point[3] = O;
+					round[6] = 7;
+					point[7] = X;
+				}
+				else if (round[5] == 7)
+				{
+					point[7] = O;
+					round[6] = 0;
+					point[0] = X;
+				}
+			}
+			else if (round[3] == 3)
+			{
+				point[3] = O;
+				round[4] = 2;
+				point[2] = X;
+			}
+			else if (round[3] == 7)
+			{
+				point[7] = O;
+				round[4] = 2;
+				point[2] = X;
+			}
+			else if (round[3] == 8)
+			{
+				point[8] = O;
+				round[4] = 2;
+				point[2] = X;
+			}
+		}
+		else if (round[1] == 7)
+		{
+			point[7] = O;
+			round[2] = 4;
+			point[4] = X;
+			counter = 3;
+			if (round[3] == 0)
+			{
+				point[0] = O;
+				round[4] = 2;
+				point[2] = X;
+			}
+			else if (round[3] == 1)
+			{
+				point[1] = O;
+				round[4] = 2;
+				point[2] = X;
+			}
+			else if (round[3] == 2)
+			{
+				point[2] = O;
+				round[4] = 0;
+				point[0] = X;
+				counter = 5;
+				if (round[5] == 1)
+				{
+					point[1] = O;
+					round[6] = 3;
+					point[3] = X;
+				}
+				else if (round[5] == 3)
+				{
+					point[3] = O;
+					round[6] = 8;
+					point[8] = X;
+				}
+				else if (round[5] == 5)
+				{
+					point[5] = O;
+					round[6] = 3;
+					point[3] = X;
+				}
+				else if (round[5] == 8)
+				{
+					point[8] = O;
+					round[6] = 3;
+					point[7] = X;
+				}
+			}
+			else if (round[3] == 3)
+			{
+				point[3] = O;
+				round[4] = 2;
+				point[2] = X;
+			}
+			else if (round[3] == 5)
+			{
+				point[5] = O;
+				round[4] = 2;
+				point[2] = X;
+			}
+			else if (round[3] == 8)
+			{
+				point[8] = O;
+				round[4] = 2;
+				point[2] = X;
+			}
+		}
+		else if (round[1] == 8)
+		{
+			point[8] = O;
+			round[2] = 0;
+			point[0] = X;
+			counter = 3;
+			if (round[3] == 1)
+			{
+				point[1] = O;
+				round[4] = 3;
+				point[3] = X;
+			}
+			else if (round[3] == 2)
+			{
+				point[2] = O;
+				round[4] = 3;
+				point[3] = X;
+			}
+			else if (round[3] == 3)
+			{
+				point[3] = O;
+				round[4] = 2;
+				point[2] = X;
+				counter = 5;
+				if (round[5] == 1)
+				{
+					point[1] = O;
+					round[6] = 4;
+					point[4] = X;
+				}
+				else if (round[5] == 4)
+				{
+					point[4] = O;
+					round[6] = 1;
+					point[1] = X;
+				}
+				else if (round[5] == 5)
+				{
+					point[5] = O;
+					round[6] = 1;
+					point[1] = X;
+				}
+				else if (round[5] == 7)
+				{
+					point[7] = O;
+					round[6] = 1;
+					point[1] = X;
+				}
+			}
+			else if (round[3] == 4)
+			{
+				point[4] = O;
+				round[4] = 3;
+				point[3] = X;
+			}
+			else if (round[3] == 5)
+			{
+				point[5] = O;
+				round[4] = 3;
+				point[3] = X;
+			}
+			else if (round[3] == 7)
+			{
+				point[7] = O;
+				round[4] = 3;
+				point[3] = X;
 			}
 		}
 	}
 	for (int j = 0; j < 9; j++)
 	{
-		if (mass[j] == 1)
+		if (point[j] == X)
 		{
 			X_signal(j);
 		}
-		else if (mass[j] == 2)
+		else if (point[j] == O)
 		{
 			O_signal(j);
 		}
@@ -225,29 +881,32 @@ void timer(int = 0)
 
 void mouse_Click(int button, int state, int ax, int ay)
 {
-	if (button == GLUT_LEFT_BUTTON)
+	if ((button == GLUT_LEFT_BUTTON) && (state == GLUT_DOWN))
 	{
 		if ((ax > 40) && (ax <= 175))
 		{
 			if ((ay > 330) && (ay <= 465))
 			{
-				if ((mass[0] != 1) && (mass[0] != 2))
+				if ((point[0] != X) && (point[0] != O))
 				{
-					mass[0] = 1;
+					point[0] = O;
+					round[counter] = 0;
 				}
 			}
 			else if ((ay > 185) && (ay <= 320))
 			{
-				if ((mass[3] != 1) && (mass[3] != 2))
+				if ((point[3] != X) && (point[3] != O))
 				{
-					mass[3] = 1;
+					point[3] = O;
+					round[counter] = 3;
 				}
 			}
 			else if ((ay > 40) && (ay <= 175))
 			{
-				if ((mass[6] != 1) && (mass[6] != 2))
+				if ((point[6] != X) && (point[6] != O))
 				{
-					mass[6] = 1;
+					point[6] = O;
+					round[counter] = 6;
 				}
 			}
 		}
@@ -255,23 +914,26 @@ void mouse_Click(int button, int state, int ax, int ay)
 		{
 			if ((ay > 330) && (ay <= 465))
 			{
-				if ((mass[1] != 1) && (mass[1] != 2))
+				if ((point[1] != X) && (point[1] != O))
 				{
-					mass[1] = 1;
+					point[1] = O;
+					round[counter] = 1;
 				}
 			}
 			else if ((ay > 185) && (ay <= 320))
 			{
-				if ((mass[4] != 1) && (mass[4] != 2))
+				if ((point[4] != X) && (point[4] != O))
 				{
-					mass[4] = 1;
+					point[4] = O;
+					round[counter] = 4;
 				}
 			}
 			else if ((ay > 40) && (ay <= 175))
 			{
-				if ((mass[7] != 1) && (mass[7] != 2))
+				if ((point[7] != X) && (point[7] != O))
 				{
-					mass[7] = 1;
+					point[7] = O;
+					round[counter] = 7;
 				}
 			}
 		}
@@ -279,23 +941,26 @@ void mouse_Click(int button, int state, int ax, int ay)
 		{
 			if ((ay > 330) && (ay <= 465))
 			{
-				if ((mass[2] != 1) && (mass[2] != 2))
+				if ((point[2] != X) && (point[2] != O))
 				{
-					mass[2] = 1;
+					point[2] = O;
+					round[counter] = 2;
 				}
 			}
 			else if ((ay > 185) && (ay <= 320))
 			{
-				if ((mass[5] != 1) && (mass[5] != 2))
+				if ((point[5] != X) && (point[5] != O))
 				{
-					mass[5] = 1;
+					point[5] = O;
+					round[counter] = 5;
 				}
 			}
 			else if ((ay > 40) && (ay <= 175))
 			{
-				if ((mass[8] != 1) && (mass[8] != 2))
+				if ((point[8] != X) && (point[8] != O))
 				{
-					mass[8] = 1;
+					point[8] = O;
+					round[counter] = 8;
 				}
 			}
 		}
